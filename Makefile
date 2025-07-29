@@ -1,23 +1,19 @@
+# Name of the Python script
+SCRIPT = main.py
 
-CC = gcc
-CFLAGS = -Wall -Wextra -std=c99
+# Target directory for output
+OUTPUT_DIR = output
 
-SRC = uvm_gen.c
+# Default target
+all: clean run
 
-TARGET = uvm_gen
-
-all: $(TARGET)
-
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
-
-run: all
-	@echo "Running the UVM generator..."
-	@./$(TARGET)
-
+# Clean the output directory
 clean:
-	@echo "Cleaning up generated files and directories..."
-	@rm -f $(TARGET)
-	@rm -rf output
+	@echo "Cleaning output directory..."
+	@rm -rf $(OUTPUT_DIR)/*
+	@mkdir -p $(OUTPUT_DIR)
 
-.PHONY: all run clean
+# Run the Python script
+run:
+	@echo "Generating UVM code..."
+	@python3 $(SCRIPT)
